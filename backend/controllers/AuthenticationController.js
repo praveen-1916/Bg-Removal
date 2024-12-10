@@ -13,7 +13,7 @@ const ClerkAuthentication = async (req, res) => {
     const { type, data } = req.body;
 
     switch (type) {
-      case "user.created":
+      case "user.created": {
         const userDetails = {
           clerkId: data.id,
           email: data.email_addresses[0].email_address,
@@ -25,8 +25,8 @@ const ClerkAuthentication = async (req, res) => {
         await User.create(userDetails);
         res.json({ success: true, message: "Account Created Successfully" });
         break;
-
-      case "user.updated":
+      }
+      case "user.updated": {
         const userUpdateDetails = {
           clerkId: data.id,
           email: data.email_addresses[0].email_address,
@@ -37,12 +37,12 @@ const ClerkAuthentication = async (req, res) => {
         await User.findOneAndUpdate({ clerkId: data.id }, userUpdateDetails);
         res.json({ success: true, message: "Account Updated Successfully" });
         break;
-
-      case "user.deleted":
+      }
+      case "user.deleted": {
         await User.findOneAndDelete({ clerkId: data.id });
         res.json({ success: true, message: "Account Deleted Successfully" });
         break;
-
+      }
       default:
         res.json({ success: false, message: "Something went wrong" });
         break;
