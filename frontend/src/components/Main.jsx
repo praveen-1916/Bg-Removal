@@ -1,22 +1,27 @@
 import { useClerk, useUser } from "@clerk/clerk-react";
-import { Button, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import { motion } from "motion/react";
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import headerImg from "../assets/header_img.png";
+import BgRemovalContext from "../context/bgRemovalContext";
 
 function Main() {
   const navigate = useNavigate();
   const { isSignedIn } = useUser();
   const { openSignIn } = useClerk();
 
-  const handleClick = () => {
+  const { removeBackground } = useContext(BgRemovalContext);
+
+  const handleImage = (e) => {
     if (isSignedIn) {
+      removeBackground(e.target.files[0]);
       navigate("/bg-remove");
     } else {
       openSignIn({});
     }
   };
+
   return (
     <>
       <div className="flex md:flex-row flex-col max-w-5xl lg:mx-auto mx-10 items-center gap-8 mt-12">
@@ -34,7 +39,7 @@ function Main() {
           >
             <Typography className="md:text-5xl sm:text-4xl text-3xl font-semibold">
               Remove the <br />
-              <span className="text-purple-500">background</span> from images
+              <span className="text-purple-600">background</span> from images
               for free.
             </Typography>
             {/* <Typography className="md:text-6xl sm:text-5xl text-4xl text-center font-normal">
@@ -64,10 +69,16 @@ function Main() {
               opacity: { delay: 0.8, duration: 1 },
             }}
           >
-            <Button
-              size="lg"
-              className="rounded-full md:mx-0 mx-auto flex items-center gap-3 px-12 bg-transparent bg-gradient-to-r from-[#7C48FE] to-[#C849F8]"
-              onClick={handleClick}
+            <input
+              type="file"
+              onChange={handleImage}
+              accept="image/*"
+              hidden
+              id="myImage"
+            />
+            <label
+              htmlFor="myImage"
+              className="flex items-center gap-3 rounded-full px-12 py-3.5 md:mx-0 mx-auto text-sm cursor-pointer text-white w-max font-bold uppercase bg-transparent bg-gradient-to-r from-[#7C48FE] to-[#C849F8]"
             >
               Upload Image
               <svg
@@ -84,7 +95,7 @@ function Main() {
                   d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
                 />
               </svg>
-            </Button>
+            </label>
           </motion.div>
         </motion.div>
 
@@ -99,6 +110,7 @@ function Main() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 2 }}
             src={headerImg}
+            // src={image ? URL.createObjectURL(image) : headerImg}
             alt="Header Image"
             className="h-full w-full"
           />

@@ -4,15 +4,24 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Spinner,
   Typography,
 } from "@material-tailwind/react";
-import React from "react";
+import React, { useContext } from "react";
 import { motion } from "motion/react";
 import withBg from "../assets/image_w_bg.png";
 import withoutBg from "../assets/image_wo_bg.png";
 import { Link } from "react-router-dom";
+import BgRemovalContext from "../context/bgRemovalContext";
 
 function BgRemove() {
+  const { image, removedBgImage, removeBackground, imageLoading } =
+    useContext(BgRemovalContext);
+
+  const handleImage = (e) => {
+    removeBackground(e.target.files[0]);
+  };
+
   return (
     <>
       <div>
@@ -32,44 +41,58 @@ function BgRemove() {
           </Link>
         </Breadcrumbs>
         <Card className="bg-transparent max-w-5xl md:mx-auto mx-10 mt-8">
-          <CardBody className="flex items-center md:flex-row flex-col gap-5 p-10">
-            <div>
-              <Typography variant="h5" color="blue-gray">
+          <CardBody className="grid md:grid-cols-2 place-items-center gap-5 p-10">
+            <div className="">
+              <Typography variant="h5" color="blue-gray" className="text-start">
                 Original
               </Typography>
               <img
-                src={withBg}
+                src={image ? URL.createObjectURL(image) : withBg}
                 alt="Image with background"
-                className="rounded-md mt-4"
+                className=" rounded-md mt-4 object-cover object-center"
               />
             </div>
-            <div>
+            <div className="">
               <Typography variant="h5" color="blue-gray">
                 Removed Background
               </Typography>
 
-              <img
-                src={withoutBg}
-                alt="Image without background"
-                className="rounded-md mt-4"
-              />
+              {imageLoading ? (
+                <Spinner className="h-5 w-5" />
+              ) : (
+                <img
+                  src={withoutBg}
+                  alt="Image without background"
+                  className="rounded-md mt-4 object-cover"
+                />
+              )}
             </div>
           </CardBody>
           <CardFooter className="flex sm:flex-row flex-col items-center gap-5 justify-end">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{
-                default: { duration: 0.5 },
-                opacity: { delay: 0.8, duration: 1 },
-              }}
-            >
-              <Button variant="outlined" className="rounded-full" size="lg">
-                Try another image
-              </Button>
-            </motion.div>
+            <input
+              type="file"
+              onChange={handleImage}
+              accept="image/*"
+              hidden
+              id="myImage"
+            />
+            <label htmlFor="myImage">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  default: { duration: 0.5 },
+                  opacity: { delay: 0.8, duration: 1 },
+                }}
+              >
+                <Button variant="outlined" className="rounded-full" size="lg">
+                  Try another image
+                </Button>
+                Image
+              </motion.div>
+            </label>
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

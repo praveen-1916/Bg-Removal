@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 const authUser = async (req, res, next) => {
   try {
-    const token = req.headers;
+    const { token } = req.headers;
     if (token) {
       const token_decode = jwt.decode(token);
       req.body.clerkId = token_decode.clerkId;

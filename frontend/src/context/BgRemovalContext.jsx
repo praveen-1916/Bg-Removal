@@ -1,5 +1,5 @@
-const { createContext } = require("react");
+import { createContext } from "react";
 
-const BgremovalContext = createContext();
+const BgRemovalContext = createContext();
 
-export default BgremovalContext;
+export default BgRemovalContext;
