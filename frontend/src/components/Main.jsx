@@ -27,7 +27,7 @@ function Main() {
 
   return (
     <>
-      <div className="flex md:flex-row flex-col max-w-5xl lg:mx-auto mx-10 items-center gap-8 mt-12">
+      <div className="flex md:flex-row flex-col max-w-5xl lg:mx-auto mx-10 items-center gap-8 mt-14">
         <motion.div
           initial={{ opacity: 0.2, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
