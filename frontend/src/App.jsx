@@ -22,7 +22,7 @@ function App() {
             </Routes>
             <Footer />
           </div>
-        </BgRe>
+        </BgRemoval>
       </Router>
     </>
   );

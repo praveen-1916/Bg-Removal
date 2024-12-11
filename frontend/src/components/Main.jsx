@@ -45,9 +45,6 @@ function Main() {
               <span className="text-purple-600">background</span> from images
               for free.
             </Typography>
-            {/* <Typography className="md:text-6xl sm:text-5xl text-4xl text-center font-normal">
-            <span className="text-pink-500">image,</span> in seconds.
-          </Typography> */}
           </motion.div>
 
           <motion.div

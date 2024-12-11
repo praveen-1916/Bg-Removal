@@ -27,7 +27,6 @@ function NavBar() {
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-center gap-1">
-          {/* <PhotoIcon className="h-7 w-7 text-pink-400" strokeWidth={2.5} /> */}
           <img src={bgRemovalLogo} alt="Bg-Removal Logo" className="h-7 w-7" />
           <Typography color="blue-gray" variant="h5">
             Bg.Removal

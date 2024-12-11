@@ -10,13 +10,6 @@ function Footer() {
         <Typography color="blue-gray" variant="h6">
           Bg.Removal
         </Typography>
-        {/* <footer className="flex md:flex-row flex-col md:gap-12 gap-8 bg-transparent px-10 mt-12 py-6">
-      <div className="flex items-center justify-center gap-1 px-12 md:pb-0 pb-8 md:border-r md:border-b-0 border-b border-[#9D9D9D]">
-        <PhotoIcon className="h-7 w-7 text-pink-400" strokeWidth={2.5} />
-        <Typography color="blue-gray" variant="h5">
-          Imagify
-        </Typography>
-      </div> */}
       </div>
       <div className="flex w-full flex-col items-center justify-center md:flex-row md:justify-between">
         <Typography
