@@ -1,5 +1,5 @@
 import { Router } from "express";
-import authUser from "../middleware/authUser";
+import authUser from "../middleware/authUser.js";
 import {
   razorpayPaymentInitializing,
   razorpayPaymentVerification,
