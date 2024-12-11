@@ -52,7 +52,7 @@ function NavBar() {
           <Button
             variant="gradient"
             onClick={() => openSignIn({})}
-            className="flex items-center gap-2 py-2.5 px-4 sm:px-6 md:px-10 rounded-full"
+            className="flex items-center gap-2 py-2.5 px-4 sm:px-6 md:px-10 rounded-full bg-transparent bg-gradient-to-r from-[#7C48FE] to-[#C849F8]"
           >
             Get Started
             <svg

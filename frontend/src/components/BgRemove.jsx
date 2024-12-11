@@ -112,6 +112,8 @@ function BgRemove() {
             </motion.div>
             {removedBgImage && (
               <motion.a
+                href={removedBgImage}
+                download="Removed_Bg_Image"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0 }}

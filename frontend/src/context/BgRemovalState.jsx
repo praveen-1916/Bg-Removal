@@ -164,11 +164,11 @@ function BgRemovalState(props) {
       });
       const data = await responce.json();
       if (data.success) {
-        alertFunc(data.msg, data.success);
-        navigate("/bg-remove");
+        alertFunc(data.message, data.success);
+        navigate("/");
         getCreditBalance();
       } else {
-        alertFunc(data.msg, data.success);
+        alertFunc(data.message, data.success);
       }
     } catch (error) {
       console.error(error.message);
