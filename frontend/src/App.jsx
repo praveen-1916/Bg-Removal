@@ -6,13 +6,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import BackgroundRemoving from "./pages/BackgroundRemoving";
 import BuyCredits from "./pages/BuyCredits";
-import BgRemovalState from "./context/bgRemovalState";
+import BgRemoval from "./context/BgRemoval";
 
 function App() {
   return (
     <>
       <Router>
-        <BgRemovalState>
+        <BgRemoval>
           <div className="bg-gradient-to-b from-[#F2FFF9] to-[#FFF6F1]">
             <NavBar />
             <Routes>
@@ -22,7 +22,7 @@ function App() {
             </Routes>
             <Footer />
           </div>
-        </BgRemovalState>
+        </BgRe>
       </Router>
     </>
   );

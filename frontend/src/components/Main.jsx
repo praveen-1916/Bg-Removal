@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import headerImg from "../assets/header_img.png";
-import BgRemovalContext from "../context/bgRemovalContext";
+import BgRemovalContext from "../context/BgRemovalContext";
 
 function Main() {
   const navigate = useNavigate();

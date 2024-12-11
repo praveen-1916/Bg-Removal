@@ -10,7 +10,7 @@ import React, { useContext, useEffect } from "react";
 import { motion } from "motion/react";
 import bgRemovalLogo from "/favicon.svg";
 import Swal from "sweetalert2";
-import BgRemovalContext from "../context/bgRemovalContext";
+import BgRemovalContext from "../context/BgRemovalContext";
 
 const plansData = [
   {

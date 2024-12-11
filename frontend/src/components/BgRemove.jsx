@@ -12,7 +12,7 @@ import withBg from "../assets/image_w_bg.png";
 import withoutBg from "../assets/image_wo_bg.png";
 import bgLayer from "../assets/bg_layer.png";
 import { Link, useNavigate } from "react-router-dom";
-import BgRemovalContext from "../context/bgRemovalContext";
+import BgRemovalContext from "../context/BgRemovalContext";
 
 function BgRemove() {
   const {

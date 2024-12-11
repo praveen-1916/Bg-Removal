@@ -4,7 +4,6 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Button,
 } from "@material-tailwind/react";
 import { motion } from "motion/react";
 import profileImage1 from "../assets/profile_img_1.png";
@@ -12,7 +11,7 @@ import profileImage2 from "../assets/profile_img_2.png";
 import profileImage3 from "../assets/profile_img_3.png";
 import { useNavigate } from "react-router-dom";
 import { useClerk, useUser } from "@clerk/clerk-react";
-import BgRemovalContext from "../context/bgRemovalContext";
+import BgRemovalContext from "../context/BgRemovalContext";
 
 const reviews = [
   {

@@ -6,7 +6,7 @@ import { useAuth } from "@clerk/clerk-react";
 import FormData from "form-data";
 import { useNavigate } from "react-router-dom";
 
-function BgRemovalState(props) {
+function BgRemoval(props) {
   const [image, setImage] = useState(null);
   const [removedBgImage, setRemovedBgImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
@@ -193,4 +193,4 @@ function BgRemovalState(props) {
   );
 }
 
-export default BgRemovalState;
+export default BgRemoval;

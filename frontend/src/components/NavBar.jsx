@@ -5,7 +5,7 @@ import bgRemovalLogo from "/favicon.svg";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
 import { useContext } from "react";
-import BgRemovalContext from "../context/bgRemovalContext";
+import BgRemovalContext from "../context/BgRemovalContext";
 
 function NavBar() {
   const { openSignIn } = useClerk();
