@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Navbar, Typography } from "@material-tailwind/react";
 
 import bgRemovalLogo from "/favicon.svg";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
+import { useContext } from "react";
+import BgRemovalContext from "../context/bgRemovalContext";
 
 function NavBar() {
   const { openSignIn } = useClerk();
   const { isSignedIn } = useUser();
 
-  //   useEffect(() => {
-  //     if (isSignedIn) {
-  //       getCreditBalance();
-  //     }
-  //   }, [isSignedIn]);
+  const { getCreditBalance, creditBalance } = useContext(BgRemovalContext);
+
+  useEffect(() => {
+    if (isSignedIn) {
+      getCreditBalance();
+    }
+  }, [isSignedIn]);
 
   return (
     <Navbar
@@ -38,7 +42,8 @@ function NavBar() {
                 variant="small"
                 className="flex items-center"
               >
-                <span className="sm:block hidden">Credits</span> : 0
+                <span className="sm:block hidden">Credits</span> :
+                {creditBalance}
               </Typography>
             </div>
             <UserButton />

@@ -15,6 +15,7 @@ const BackgroundRemovalController = async (req, res) => {
       res.json({ success: false, message: "Insufficient credits" });
     }
 
+    console.log(req.file);
     const imagePath = req.file.path;
     const imageFile = fs.createReadStream(imagePath);
 

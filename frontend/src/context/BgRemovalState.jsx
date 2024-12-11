@@ -3,12 +3,15 @@ import BgremovalContext from "./bgRemovalContext";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { useAuth } from "@clerk/clerk-react";
+import FormData from "form-data";
+import { useNavigate } from "react-router-dom";
 
 function BgRemovalState(props) {
   const [image, setImage] = useState(null);
   const [removedBgImage, setRemovedBgImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
   const { getToken } = useAuth();
+  const navigate = useNavigate();
 
   const Toast = Swal.mixin({
     toast: true,
@@ -40,8 +43,8 @@ function BgRemovalState(props) {
     try {
       setImageLoading(true);
       setImage(image);
-      // const formData = new FormData();
-      // formData.append(image);
+      const formData = new FormData();
+      image && formData.append("image", image);
       const token = await getToken();
 
       const url =
@@ -50,10 +53,9 @@ function BgRemovalState(props) {
       const responce = await fetch(url, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           token: token,
         },
-        body: JSON.stringify(image),
+        body: formData,
       });
       const data = await responce.json();
       if (data.success) {
@@ -98,6 +100,82 @@ function BgRemovalState(props) {
     }
   };
 
+  const razorpayPaymentGateway = async (planId) => {
+    try {
+      const token = await getToken();
+      const plan = { planId: planId };
+      const url =
+        import.meta.env.VITE_URL_END_POINT +
+        import.meta.env.VITE_RAZORPAY_INITIALIZE;
+      const responce = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: token,
+        },
+        body: JSON.stringify(plan),
+      });
+      const data = await responce.json();
+      if (data.success) {
+        razorInitPay(data.order);
+      } else {
+        alertFunc(data.message, data.success);
+      }
+    } catch (error) {
+      console.error(error.message);
+      alertFunc(error.message, false);
+    }
+  };
+
+  const razorInitPay = async (order) => {
+    try {
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: "INR",
+        name: "Credits Payment", //your business name
+        description: "Test Transaction",
+        order_id: order.id, //T
+        receipt: order.receipt,
+        handler: async (responce) => {
+          razorpayPaymentVerification(responce);
+        },
+      };
+
+      const razorpayWindow = new window.Razorpay(options);
+      razorpayWindow.open();
+    } catch (error) {
+      console.error(error.message);
+      alertFunc(error.message, false);
+    }
+  };
+
+  const razorpayPaymentVerification = async (orderDetails) => {
+    try {
+      const url =
+        import.meta.env.VITE_URL_END_POINT +
+        import.meta.env.VITE_RAZORPAY_VERIFICATION;
+      const responce = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderDetails),
+      });
+      const data = await responce.json();
+      if (data.success) {
+        alertFunc(data.msg, data.success);
+        navigate("/bg-remove");
+        getCreditBalance();
+      } else {
+        alertFunc(data.msg, data.success);
+      }
+    } catch (error) {
+      console.error(error.message);
+      alertFunc(error.message, false);
+    }
+  };
+
   return (
     <BgremovalContext.Provider
       value={{
@@ -107,6 +185,7 @@ function BgRemovalState(props) {
         removeBackground,
         getCreditBalance,
         creditBalance,
+        razorpayPaymentGateway,
       }}
     >
       {props.children}

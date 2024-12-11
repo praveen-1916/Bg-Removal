@@ -4,6 +4,7 @@ import "dotenv/config";
 import connectToMongo from "./database.js";
 import bgRemovalRouter from "./routes/bgRemovalRoute.js";
 import authenticationRoute from "./routes/authenticationRoute.js";
+import paymentRoute from "./routes/paymentRoute.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ app.use(cors());
 
 app.use("/image", bgRemovalRouter);
 app.use("/api/user", authenticationRoute);
+app.use("/payment", paymentRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

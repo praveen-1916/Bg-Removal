@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Card,
   CardBody,
@@ -12,6 +12,7 @@ import profileImage2 from "../assets/profile_img_2.png";
 import profileImage3 from "../assets/profile_img_3.png";
 import { useNavigate } from "react-router-dom";
 import { useClerk, useUser } from "@clerk/clerk-react";
+import BgRemovalContext from "../context/bgRemovalContext";
 
 const reviews = [
   {
@@ -45,9 +46,15 @@ function CoustomerReviews() {
   const { isSignedIn } = useUser();
   const { openSignIn } = useClerk();
 
+  const { creditBalance } = useContext(BgRemovalContext);
+
   const handleImage = (e) => {
-    if (isSignedIn) {
+    if (isSignedIn && creditBalance > 0) {
+      removeBackground(e.target.files[0]);
       navigate("/bg-remove");
+    }
+    if (isSignedIn && creditBalance <= 0) {
+      navigate("/buy-credits");
     } else {
       openSignIn({});
     }

@@ -11,12 +11,15 @@ function Main() {
   const { isSignedIn } = useUser();
   const { openSignIn } = useClerk();
 
-  const { removeBackground } = useContext(BgRemovalContext);
+  const { removeBackground, creditBalance } = useContext(BgRemovalContext);
 
   const handleImage = (e) => {
-    if (isSignedIn) {
+    if (isSignedIn && creditBalance > 0) {
       removeBackground(e.target.files[0]);
       navigate("/bg-remove");
+    }
+    if (isSignedIn && creditBalance <= 0) {
+      navigate("/buy-credits");
     } else {
       openSignIn({});
     }

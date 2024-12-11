@@ -10,29 +10,32 @@ import React, { useContext, useEffect } from "react";
 import { motion } from "motion/react";
 import bgRemovalLogo from "/favicon.svg";
 import Swal from "sweetalert2";
+import BgRemovalContext from "../context/bgRemovalContext";
 
 const plansData = [
   {
     planid: "Basic",
-    credits: 100,
+    credits: 50,
     amount: 10,
     description: "Best for personal use",
   },
   {
     planid: "Advanced",
     credits: 500,
-    amount: 50,
+    amount: 100,
     description: "Best for business use.",
   },
   {
     planid: "Business",
-    credits: 5000,
-    amount: 250,
+    credits: 2500,
+    amount: 500,
     description: "Best for enterprise use.",
   },
 ];
 
 function Pricing() {
+  const { razorpayPaymentGateway } = useContext(BgRemovalContext);
+
   const Toast = Swal.mixin({
     toast: true,
     position: "bottom-end",
@@ -117,7 +120,7 @@ function Pricing() {
                   <Button
                     fullWidth
                     variant="gradient"
-                    //   onClick={}
+                    onClick={() => razorpayPaymentGateway(planid)}
                   >
                     Get Started
                   </Button>

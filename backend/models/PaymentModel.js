@@ -17,7 +17,7 @@ const PaymentSchema = new Schema({
     type: Number,
     required: true,
   },
-  payment: {
+  paymentStatus: {
     type: Boolean,
     default: false,
   },
